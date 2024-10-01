@@ -1,0 +1,57 @@
+connections:
+  openai-conn:
+    type: fiboaitech.connections.OpenAI
+  scale-serp-conn:
+    type: fiboaitech.connections.ScaleSerp
+  zen-rows-conn:
+    type: fiboaitech.connections.ZenRows
+
+nodes:
+  literature-orchestrator:
+    type: fiboaitech.nodes.agents.orchestrators.AdaptiveOrchestrator
+    manager:
+      id: adaptive-manager-agent
+      type: fiboaitech.nodes.agents.orchestrators.AdaptiveAgentManager
+      llm:
+        id: manager-llm
+        type: fiboaitech.nodes.llms.OpenAI
+        connection: openai-conn
+        model: gpt-3.5-turbo
+    agents:
+      - id: agent-researcher
+        type: fiboaitech.nodes.agents.ReActAgent
+        llm:
+          id: agent-researcher-llm
+          type: fiboaitech.nodes.llms.OpenAI
+          connection: openai-conn
+          model: gpt-3.5-turbo
+        tools:
+          - id: search-scale-serp
+            type: fiboaitech.nodes.tools.ScaleSerpTool
+            connection: scale-serp-conn
+          - id: scrape-zen-rows
+            type: fiboaitech.nodes.tools.SummarizerTool
+            connection: zen-rows-conn
+            llm:
+              id: scrape-zen-rows-llm
+              type: fiboaitech.nodes.llms.OpenAI
+              connection: openai-conn
+              model: gpt-3.5-turbo
+      - id: agent-writer
+        type: fiboaitech.nodes.agents.SimpleAgent
+        llm:
+          id: agent-writer-llm
+          type: fiboaitech.nodes.llms.OpenAI
+          connection: openai-conn
+          model: gpt-3.5-turbo
+
+flows:
+  agent-flow:
+    name: Agent Flow
+    nodes:
+      - literature-orchestrator
+
+workflows:
+  agent-workflow:
+    flow: agent-flow
+    version: 1
