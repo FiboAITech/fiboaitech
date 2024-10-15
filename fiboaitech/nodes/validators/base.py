@@ -1,15 +1,9 @@
-import enum
 from abc import abstractmethod
 from typing import Any, Literal
 
-from fiboaitech.nodes import Node, NodeGroup
+from fiboaitech.nodes import Behavior, Node, NodeGroup
 from fiboaitech.nodes.node import ensure_config
 from fiboaitech.runnables import RunnableConfig
-
-
-class Behavior(str, enum.Enum):
-    RAISE = "raise"
-    RETURN = "return"
 
 
 class BaseValidator(Node):
