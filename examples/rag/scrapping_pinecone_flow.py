@@ -14,7 +14,7 @@ from fiboaitech.storages.vector import PineconeVectorStore
 app = typer.Typer()
 
 python_code = """
-def run(input_data):
+def run(inputs):
     from fiboaitech.types import Document
 
     raw_content = input_data.get('content')

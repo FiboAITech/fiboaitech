@@ -1,8 +1,16 @@
-from fiboaitech.nodes.agents.react import ReActAgent
 from fiboaitech.connections import Http as HttpConnection
+from fiboaitech.nodes.agents.react import ReActAgent
 from fiboaitech.nodes.tools.http_api_call import HttpApiCall, ResponseType
 from fiboaitech.nodes.tools.python import Python
 from examples.llm_setup import setup_llm
+
+PYTHON_TOOL_CODE = """
+def run(inputs):
+    import requests
+    response = requests.get("https://example.com")
+    return {"content": response.text}
+"""
+
 
 if __name__ == "__main__":
     llm = setup_llm()
@@ -11,12 +19,7 @@ if __name__ == "__main__":
     web_request_tool = Python(
         name="WebRequestTool",
         description="Makes a GET request to example.com and returns the response text",
-        code="""
-def run(input_data):
-    import requests
-    response = requests.get("https://example.com")
-    return {"content": response.text}
-""",
+        code=PYTHON_TOOL_CODE,
     )
 
     connection = HttpConnection(
