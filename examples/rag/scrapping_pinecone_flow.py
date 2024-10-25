@@ -9,7 +9,7 @@ from fiboaitech.nodes.splitters.document import DocumentSplitter
 from fiboaitech.nodes.tools.firecrawl import FirecrawlTool
 from fiboaitech.nodes.tools.python import Python
 from fiboaitech.nodes.writers import PineconeDocumentWriter
-from fiboaitech.storages.vector import PineconeVectorStore
+from fiboaitech.storages.vector.pinecone.pinecone import PineconeIndexType
 
 app = typer.Typer()
 
@@ -28,8 +28,6 @@ def run(inputs):
 
 
 def create_indexing_flow(index_name="default"):
-    vector_store = PineconeVectorStore(index_name=index_name, dimension=1536)
-
     web_scraper_tool = FirecrawlTool(connection=FirecrawlConnection())
 
     python_node = Python(
@@ -66,7 +64,8 @@ def create_indexing_flow(index_name="default"):
         ),
     )
     document_writer_node = PineconeDocumentWriter(
-        vector_store=vector_store,
+        index_name=index_name,
+        index_type=PineconeIndexType.SERVERLESS,
         depends=[
             NodeDependency(document_embedder_node),
         ],

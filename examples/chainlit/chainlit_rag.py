@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import os
 from functools import partial
 
 import chainlit as cl
@@ -8,6 +9,7 @@ from chainlit.input_widget import Select, Slider
 from fiboaitech import Workflow, flows, runnables
 from fiboaitech.callbacks.streaming import AsyncStreamingIteratorCallbackHandler
 from fiboaitech.connections import OpenAI as OpenAIConnection
+from fiboaitech.connections import Pinecone
 from fiboaitech.flows import Flow
 from fiboaitech.nodes import llms
 from fiboaitech.nodes.converters import UnstructuredFileConverter
@@ -18,6 +20,7 @@ from fiboaitech.nodes.splitters.document import DocumentSplitter
 from fiboaitech.nodes.writers import PineconeDocumentWriter
 from fiboaitech.prompts import Message, Prompt
 from fiboaitech.storages.vector import PineconeVectorStore
+from fiboaitech.storages.vector.pinecone.pinecone import PineconeIndexType
 from fiboaitech.types.streaming import StreamingConfig
 from fiboaitech.utils import generate_uuid
 from fiboaitech.utils.logger import logger
@@ -221,7 +224,16 @@ async def start_chat():
     await msg.send()
 
     # initialize the vector store
-    vector_store = PineconeVectorStore(index_name="default", dimension=1536)
+    connection = Pinecone()
+    vector_store = PineconeVectorStore(
+        connection=connection,
+        index_name="default",
+        dimension=1536,
+        index_type=PineconeIndexType.SERVERLESS,
+        create_if_not_exist=True,
+        cloud=os.getenv("PINECONE_CLOUD"),
+        region=os.getenv("PINECONE_REGION"),
+    )
     if vector_store.count_documents() > 0:
         vector_store.delete_documents(delete_all=True)
 

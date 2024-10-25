@@ -1,3 +1,5 @@
+import os
+
 from fiboaitech.components.embedders.openai import OpenAIEmbedder
 from fiboaitech.connections import Pinecone as PineconeConnection
 from fiboaitech.memory import Memory
@@ -6,7 +8,12 @@ from fiboaitech.prompts import MessageRole
 
 pinecone_connection = PineconeConnection()
 embedder = OpenAIEmbedder(dimensions=1536)
-backend = Pinecone(connection=pinecone_connection, embedder=embedder)
+backend = Pinecone(
+    connection=pinecone_connection,
+    cloud=os.getenv("PINECONE_CLOUD"),
+    region=os.getenv("PINECONE_REGION"),
+    embedder=embedder,
+)
 memory = Memory(backend=backend)
 
 
