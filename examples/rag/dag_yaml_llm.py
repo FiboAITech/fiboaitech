@@ -2,6 +2,8 @@ import json
 import logging
 import os
 
+from dotenv import find_dotenv, load_dotenv
+
 from fiboaitech import Workflow, runnables
 from fiboaitech.callbacks import TracingCallbackHandler
 from fiboaitech.connections.managers import ConnectionManager, get_connection_manager
@@ -9,6 +11,7 @@ from fiboaitech.loaders.yaml import WorkflowYAMLLoader
 from fiboaitech.utils import JsonWorkflowEncoder
 
 logger = logging.getLogger(__name__)
+load_dotenv(find_dotenv())
 
 
 def retrieval_flow(yaml_file_path: str, cm: ConnectionManager):
