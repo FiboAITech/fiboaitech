@@ -6,7 +6,6 @@ from fiboaitech.prompts import Message
 # TODO: Vector stores and backend consolidation
 class MemoryBackend(ABC):
     """Abstract base class for memory storage backends."""
-
     name = "MemoryBackend"
 
     @abstractmethod
