@@ -1,27 +1,28 @@
-version: "3.8"
-
-x-base-app-test: &base-app-test
-  image: fiboaitech-app:${IMAGE_TAG:-local}
-  build:
-    target: develop
-  volumes:
-    - ./:/app
-
 services:
   fiboaitech-app:
-    # Caching target to avoid cache duplication
-    <<: *base-app-test
+    image: fiboaitech-app:${IMAGE_TAG:-local}
+    build:
+      target: develop
+    volumes:
+      - ./:/app
 
-  fiboaitech-app-test: &app-test
-    <<: *base-app-test
+  fiboaitech-app-test:
+    image: fiboaitech-app:${IMAGE_TAG:-local}
+    build:
+      target: develop
     entrypoint: ["make", "test"]
     env_file:
       - .env
+    volumes:
+      - ./:/app
 
   fiboaitech-app-test-cov:
-    <<: *app-test
+    image: fiboaitech-app:${IMAGE_TAG:-local}
+    build:
+      target: develop
     entrypoint: ["make", "test-cov"]
     env_file:
       - .env
     volumes:
+      - ./:/app
       - ./reports:/app/reports:wr
