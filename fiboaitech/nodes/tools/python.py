@@ -20,6 +20,7 @@ ALLOWED_MODULES = [
     "cmath",
     "csv",
     "datetime",
+    "fiboaitech",
     "functools",
     "itertools",
     "json",
