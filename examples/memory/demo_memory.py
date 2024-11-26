@@ -1,5 +1,5 @@
 from fiboaitech.memory import Memory
-from fiboaitech.memory.backend import InMemory
+from fiboaitech.memory.backends import InMemory
 from fiboaitech.prompts import MessageRole
 
 # Create a memory instance with InMemory backend

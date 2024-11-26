@@ -1,4 +1,4 @@
-from fiboaitech.memory.backend import SQLite
+from fiboaitech.memory.backends import SQLite
 from fiboaitech.memory.memory import Memory
 from fiboaitech.prompts import MessageRole
 

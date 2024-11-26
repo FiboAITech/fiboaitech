@@ -4,7 +4,7 @@ import pytest
 
 from fiboaitech import Workflow, connections, flows, prompts
 from fiboaitech.memory import Memory
-from fiboaitech.memory.backend import InMemory
+from fiboaitech.memory.backends import InMemory
 from fiboaitech.nodes.agents.simple import SimpleAgent
 from fiboaitech.nodes.llms import OpenAI
 from fiboaitech.prompts import MessageRole

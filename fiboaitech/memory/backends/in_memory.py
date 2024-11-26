@@ -1,7 +1,7 @@
 import math
 from collections import Counter
 
-from fiboaitech.memory.backend.base import MemoryBackend
+from fiboaitech.memory.backends.base import MemoryBackend
 from fiboaitech.prompts import Message
 
 

@@ -4,7 +4,7 @@ from fiboaitech import Workflow
 from fiboaitech.callbacks import TracingCallbackHandler
 from fiboaitech.flows import Flow
 from fiboaitech.memory import Memory
-from fiboaitech.memory.backend.in_memory import InMemory
+from fiboaitech.memory.backends.in_memory import InMemory
 from fiboaitech.nodes.agents.simple import SimpleAgent
 from fiboaitech.prompts import MessageRole
 from fiboaitech.runnables import RunnableConfig

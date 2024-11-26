@@ -4,7 +4,7 @@ from qdrant_client.http.exceptions import UnexpectedResponse
 
 from fiboaitech.components.embedders.base import BaseEmbedder
 from fiboaitech.connections import Qdrant as QdrantConnection
-from fiboaitech.memory.backend.base import MemoryBackend
+from fiboaitech.memory.backends.base import MemoryBackend
 from fiboaitech.prompts import Message
 from fiboaitech.storages.vector.policies import DuplicatePolicy
 from fiboaitech.storages.vector.qdrant import QdrantVectorStore

@@ -1,7 +1,7 @@
 from fiboaitech.callbacks.streaming import StreamingIteratorCallbackHandler
 from fiboaitech.connections import E2B, ScaleSerp
 from fiboaitech.memory import Memory
-from fiboaitech.memory.backend.in_memory import InMemory
+from fiboaitech.memory.backends.in_memory import InMemory
 from fiboaitech.nodes.agents.orchestrators.adaptive import AdaptiveOrchestrator
 from fiboaitech.nodes.agents.orchestrators.adaptive_manager import AdaptiveAgentManager
 from fiboaitech.nodes.agents.react import ReActAgent

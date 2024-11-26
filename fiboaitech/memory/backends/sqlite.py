@@ -3,7 +3,7 @@ import re
 import sqlite3
 import uuid
 
-from fiboaitech.memory.backend.base import MemoryBackend
+from fiboaitech.memory.backends.base import MemoryBackend
 from fiboaitech.prompts import Message
 
 

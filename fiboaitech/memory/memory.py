@@ -1,7 +1,7 @@
 from datetime import datetime
 from enum import Enum
 
-from fiboaitech.memory.backend import InMemory, MemoryBackend
+from fiboaitech.memory.backends import InMemory, MemoryBackend
 from fiboaitech.prompts import Message, MessageRole
 from fiboaitech.utils.logger import logger
 

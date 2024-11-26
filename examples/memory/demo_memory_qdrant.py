@@ -1,6 +1,6 @@
 from fiboaitech.components.embedders.openai import OpenAIEmbedder
 from fiboaitech.connections import Qdrant as QdrantConnection
-from fiboaitech.memory.backend.qdrant import Qdrant
+from fiboaitech.memory.backends.qdrant import Qdrant
 from fiboaitech.memory.memory import Memory
 from fiboaitech.prompts import MessageRole
 

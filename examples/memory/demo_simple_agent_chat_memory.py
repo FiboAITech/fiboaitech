@@ -1,5 +1,5 @@
 from fiboaitech.memory import Memory
-from fiboaitech.memory.backend.in_memory import InMemory
+from fiboaitech.memory.backends.in_memory import InMemory
 from fiboaitech.nodes.agents.simple import SimpleAgent
 from examples.llm_setup import setup_llm
 

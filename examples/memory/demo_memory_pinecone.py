@@ -1,7 +1,7 @@
 from fiboaitech.components.embedders.openai import OpenAIEmbedder
 from fiboaitech.connections import Pinecone as PineconeConnection
 from fiboaitech.memory import Memory
-from fiboaitech.memory.backend import Pinecone
+from fiboaitech.memory.backends import Pinecone
 from fiboaitech.prompts import MessageRole
 
 

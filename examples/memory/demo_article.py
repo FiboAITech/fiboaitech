@@ -1,7 +1,7 @@
 from fiboaitech.components.embedders.openai import OpenAIEmbedder
 from fiboaitech.connections import Qdrant as QdrantConnection
 from fiboaitech.memory import Memory
-from fiboaitech.memory.backend import Qdrant
+from fiboaitech.memory.backends import Qdrant
 from fiboaitech.nodes.agents.simple import SimpleAgent
 from fiboaitech.prompts import MessageRole
 from examples.llm_setup import setup_llm

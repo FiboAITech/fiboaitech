@@ -2,7 +2,7 @@ import uuid
 
 from fiboaitech.components.embedders.base import BaseEmbedder
 from fiboaitech.connections import Pinecone as PineconeConnection
-from fiboaitech.memory.backend.base import MemoryBackend
+from fiboaitech.memory.backends.base import MemoryBackend
 from fiboaitech.prompts import Message
 from fiboaitech.storages.vector.pinecone import PineconeVectorStore
 from fiboaitech.storages.vector.pinecone.pinecone import PineconeIndexType

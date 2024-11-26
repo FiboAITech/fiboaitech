@@ -1,6 +1,6 @@
 from fiboaitech.callbacks.streaming import StreamingIteratorCallbackHandler
 from fiboaitech.memory import Memory
-from fiboaitech.memory.backend.in_memory import InMemory
+from fiboaitech.memory.backends.in_memory import InMemory
 from fiboaitech.nodes.agents.simple import SimpleAgent
 from fiboaitech.runnables import RunnableConfig
 from fiboaitech.types.streaming import StreamingConfig, StreamingMode
