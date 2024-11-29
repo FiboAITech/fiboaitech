@@ -9,7 +9,7 @@ from fiboaitech.nodes.llms.gemini import Gemini
 from fiboaitech.nodes.llms.groq import Groq
 from fiboaitech.nodes.llms.openai import OpenAI
 
-MODEL_NAME_GPT = "gpt-4o-mini"
+MODEL_NAME_GPT = "gpt-4o"
 MODEL_NAME_CLAUDE = "claude-3-5-sonnet-20240620"
 MODEL_NAME_COHERE = "command-r-plus"
 MODEL_NAME_GROQ = "groq/llama3-70b-8192"
