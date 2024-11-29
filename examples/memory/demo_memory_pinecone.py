@@ -4,7 +4,6 @@ from fiboaitech.memory import Memory
 from fiboaitech.memory.backends import Pinecone
 from fiboaitech.prompts import MessageRole
 
-
 pinecone_connection = PineconeConnection()
 embedder = OpenAIEmbedder(dimensions=1536)
 

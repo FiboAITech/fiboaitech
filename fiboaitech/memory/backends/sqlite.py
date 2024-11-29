@@ -9,6 +9,7 @@ from fiboaitech.prompts import Message
 
 class SQLiteError(Exception):
     """Base exception class for SQLite-related errors in the memory backend."""
+
     pass
 
 
