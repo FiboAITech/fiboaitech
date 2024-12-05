@@ -1,14 +1,19 @@
-from fiboaitech.components.embedders.openai import OpenAIEmbedder
+from fiboaitech.connections import OpenAI as OpenAIConnection
 from fiboaitech.connections import Qdrant as QdrantConnection
 from fiboaitech.memory.backends.qdrant import Qdrant
 from fiboaitech.memory.memory import Memory
+from fiboaitech.nodes.embedders import OpenAIDocumentEmbedder
 from fiboaitech.prompts import MessageRole
 
-INDEX_NAME = "conv-qdrant"
-qdrant_connection = QdrantConnection()
-embedder = OpenAIEmbedder(dimensions=1536)
+INDEX_NAME = "conversations"
+qdrant_connection = QdrantConnection(
+)
+openai_connection = OpenAIConnection()
+embedder = OpenAIDocumentEmbedder(connection=openai_connection)
 
-qdrant_backend = Qdrant(connection=qdrant_connection, embedder=embedder, index_name=INDEX_NAME)
+qdrant_backend = Qdrant(
+    connection=qdrant_connection, embedder=embedder, index_name=INDEX_NAME, create_if_not_exist=True
+)
 memory = Memory(backend=qdrant_backend)
 
 # Add messages with metadata

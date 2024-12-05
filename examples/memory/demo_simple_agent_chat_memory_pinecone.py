@@ -1,20 +1,26 @@
-from fiboaitech.components.embedders.openai import OpenAIEmbedder
+from fiboaitech.connections import OpenAI as OpenAIConnection
 from fiboaitech.connections import Pinecone as PineconeConnection
 from fiboaitech.memory import Memory
 from fiboaitech.memory.backends import Pinecone
 from fiboaitech.nodes.agents.simple import SimpleAgent
+from fiboaitech.nodes.embedders import OpenAIDocumentEmbedder
+from fiboaitech.storages.vector.pinecone.pinecone import PineconeIndexType
 from examples.llm_setup import setup_llm
 
 
 def setup_agent():
     llm = setup_llm()
     pinecone_connection = PineconeConnection()
-    embedder = OpenAIEmbedder(dimensions=1536)
+    openai_connection = OpenAIConnection()
+    embedder = OpenAIDocumentEmbedder(connection=openai_connection)
 
-    # Create a memory instance with Pinecone storage
     backend = Pinecone(
+        index_name="test-conv",
         connection=pinecone_connection,
         embedder=embedder,
+        index_type=PineconeIndexType.SERVERLESS,
+        cloud="aws",
+        region="us-east-1",
     )
 
     memory_pinecone = Memory(backend=backend)
@@ -37,7 +43,6 @@ def chat_loop(agent):
         if user_input.lower() == "exit":
             break
 
-        # The agent uses the memory internally when generating a response
         response = agent.run({"input": user_input})
         response_content = response.output.get("content")
         print(f"AI: {response_content}")
