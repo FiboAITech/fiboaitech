@@ -6,8 +6,7 @@ from fiboaitech.nodes.embedders import OpenAIDocumentEmbedder
 from fiboaitech.prompts import MessageRole
 
 INDEX_NAME = "conversations"
-qdrant_connection = QdrantConnection(
-)
+qdrant_connection = QdrantConnection()
 openai_connection = OpenAIConnection()
 embedder = OpenAIDocumentEmbedder(connection=openai_connection)
 

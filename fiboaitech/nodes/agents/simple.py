@@ -4,4 +4,4 @@ from fiboaitech.nodes.agents.base import Agent
 class SimpleAgent(Agent):
     """Agent that uses the Simple strategy for processing tasks."""
 
-    name: str = "Simple"
+    name: str = "Agent Simple"

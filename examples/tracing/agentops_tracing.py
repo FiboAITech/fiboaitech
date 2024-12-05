@@ -7,9 +7,13 @@ from fiboaitech import Workflow
 from fiboaitech.callbacks import BaseCallbackHandler
 from fiboaitech.callbacks.base import get_parent_run_id, get_run_id
 from fiboaitech.callbacks.tracing import RunType
+from fiboaitech.connections import Exa
 from fiboaitech.flows import Flow
 from fiboaitech.nodes import NodeGroup
 from fiboaitech.nodes.agents import SimpleAgent
+from fiboaitech.nodes.agents.react import ReActAgent
+from fiboaitech.nodes.tools.exa_search import ExaTool
+from fiboaitech.nodes.types import InferenceMode
 from fiboaitech.runnables import RunnableConfig
 from fiboaitech.utils import format_value, generate_uuid
 from fiboaitech.utils.env import get_env_var
@@ -105,19 +109,37 @@ class AgentOpsCallbackHandler(BaseCallbackHandler):
         return self.ao_client.current_session_ids
 
 
-if __name__ == "__main__":
+def get_react_agent():
+    llm = setup_llm()
+    connection_exa = Exa()
+    tool_search = ExaTool(connection=connection_exa)
+    agent = ReActAgent(
+        name="Agent",
+        id="Agent",
+        llm=llm,
+        tools=[tool_search],
+        inference_mode=InferenceMode.XML,
+    )
+    return agent
+
+
+def get_simple_agent():
     llm = setup_llm()
     agent = SimpleAgent(
         name="Agent",
         llm=llm,
         role="Agent, goal to provide information based on the user input",
     )
+    return agent
 
+
+if __name__ == "__main__":
+    agent = get_react_agent()
     workflow = Workflow(
         flow=Flow(nodes=[agent]),
     )
     agentops_tracing = AgentOpsCallbackHandler(api_key=get_env_var("AGENTOPS_API_KEY"))
     workflow.run(
-        {"input": "explain the concept of quantum mechanics"},
+        {"input": "who won euro 2024"},
         config=RunnableConfig(callbacks=[agentops_tracing]),
     )
