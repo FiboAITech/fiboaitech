@@ -1,7 +1,7 @@
 import json
 
 import pytest
-from pydantic import ConfigDict
+from pydantic import ConfigDict, ValidationError
 
 from fiboaitech import Workflow
 from fiboaitech.callbacks import TracingCallbackHandler
@@ -11,7 +11,6 @@ from fiboaitech.flows import Flow
 from fiboaitech.nodes.tools.exa_search import ExaTool
 from fiboaitech.runnables import RunnableConfig, RunnableResult, RunnableStatus
 from fiboaitech.utils import JsonWorkflowEncoder
-from pydantic import ValidationError
 
 
 @pytest.fixture
