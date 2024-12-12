@@ -1,6 +1,7 @@
 from typing import Any
 
 from fiboaitech.storages.vector.qdrant import QdrantVectorStore
+from fiboaitech.types import Document
 from fiboaitech.utils.logger import logger
 
 
@@ -42,7 +43,7 @@ class QdrantDocumentRetriever:
         top_k: int | None = None,
         filters: dict[str, Any] | None = None,
         content_key: str | None = None,
-    ):
+    ) -> dict[str, list[Document]]:
         """
         Retrieves documents from the QdrantDocumentStore that are similar to the provided query embedding.
         Args:

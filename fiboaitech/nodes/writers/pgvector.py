@@ -1,14 +1,13 @@
-from typing import Any, Literal
-
 from fiboaitech.connections import PostgreSQL
-from fiboaitech.nodes.node import NodeGroup, VectorStoreNode, ensure_config
+from fiboaitech.nodes.node import ensure_config
+from fiboaitech.nodes.writers.base import Writer, WriterInputSchema
 from fiboaitech.runnables import RunnableConfig
 from fiboaitech.storages.vector import PGVectorStore
 from fiboaitech.storages.vector.pgvector.pgvector import PGVectorStoreWriterParams
 from fiboaitech.utils.logger import logger
 
 
-class PGVectorDocumentWriter(VectorStoreNode, PGVectorStoreWriterParams):
+class PGVectorDocumentWriter(Writer, PGVectorStoreWriterParams):
     """
     Document Writer Node using PGVector Vector Store.
 
@@ -21,7 +20,6 @@ class PGVectorDocumentWriter(VectorStoreNode, PGVectorStoreWriterParams):
         vector_store (PGVectorStore | None): The PGVector Vector Store instance.
     """
 
-    group: Literal[NodeGroup.WRITERS] = NodeGroup.WRITERS
     name: str = "PGVectorDocumentWriter"
     connection: PostgreSQL | str | None = None
     vector_store: PGVectorStore | None = None
@@ -50,14 +48,14 @@ class PGVectorDocumentWriter(VectorStoreNode, PGVectorStoreWriterParams):
             "client": self.client,
         }
 
-    def execute(self, input_data: dict[str, Any], config: RunnableConfig = None, **kwargs):
+    def execute(self, input_data: WriterInputSchema, config: RunnableConfig = None, **kwargs):
         """
         Execute the document writing operation.
 
         This method writes the input documents to the PGVector Vector Store.
 
         Args:
-            input_data (dict[str, Any]): Input data containing the documents to be written.
+            input_data (WriterInputSchema): Input data containing the documents to be written.
             config (RunnableConfig, optional): Configuration for the execution.
             **kwargs: Additional keyword arguments.
 
@@ -67,9 +65,9 @@ class PGVectorDocumentWriter(VectorStoreNode, PGVectorStoreWriterParams):
         config = ensure_config(config)
         self.run_on_node_execute_run(config.callbacks, **kwargs)
 
-        documents = input_data["documents"]
-        content_key = input_data.get("content_key")
-        embedding_key = input_data.get("embedding_key")
+        documents = input_data.documents
+        content_key = input_data.content_key
+        embedding_key = input_data.embedding_key
 
         upserted_count = self.vector_store.write_documents(
             documents, content_key=content_key, embedding_key=embedding_key
