@@ -9,7 +9,7 @@ from ragas.metrics import answer_relevancy, context_precision, context_recall, f
 
 from fiboaitech import ROOT_PATH, Workflow, runnables
 from fiboaitech.connections.managers import get_connection_manager
-from fiboaitech.loaders.yaml import WorkflowYAMLLoader
+from fiboaitech.serializers.loaders.yaml import WorkflowYAMLLoader
 
 logger = logging.getLogger(__name__)
 

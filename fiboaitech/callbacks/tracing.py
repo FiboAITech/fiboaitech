@@ -18,14 +18,14 @@ from fiboaitech.utils import JsonWorkflowEncoder, format_value, generate_uuid
 UTC = timezone.utc
 
 
-class RunStatus(Enum):
+class RunStatus(str, Enum):
     """Enumeration for run statuses."""
     SUCCEEDED = "succeeded"
     FAILED = "failed"
     SKIPPED = "skipped"
 
 
-class RunType(Enum):
+class RunType(str, Enum):
     """Enumeration for run types."""
     WORKFLOW = "workflow"
     FLOW = "flow"

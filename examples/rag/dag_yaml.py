@@ -7,7 +7,7 @@ from dotenv import find_dotenv, load_dotenv
 from fiboaitech import Workflow, runnables
 from fiboaitech.callbacks import TracingCallbackHandler
 from fiboaitech.connections.managers import ConnectionManager, get_connection_manager
-from fiboaitech.loaders.yaml import WorkflowYAMLLoader
+from fiboaitech.serializers.loaders.yaml import WorkflowYAMLLoader
 from fiboaitech.utils import JsonWorkflowEncoder
 from examples.rag.utils import list_data_folder_paths, read_bytes_io_files
 
