@@ -16,7 +16,7 @@ nodes:
     initial_state: researcher
     states:
         - id: researcher
-          type: fiboaitech.nodes.utils.state.State
+          type: fiboaitech.nodes.agents.orchestrators.GraphState
           manager:
             id: graph-manager-agent
             type: fiboaitech.nodes.agents.orchestrators.GraphAgentManager
@@ -47,7 +47,7 @@ nodes:
             - "writer"
 
         - id: writer
-          type: fiboaitech.nodes.utils.state.State
+          type: fiboaitech.nodes.agents.orchestrators.GraphState
           manager:
             id: graph-manager-agent
             type: fiboaitech.nodes.agents.orchestrators.GraphAgentManager
