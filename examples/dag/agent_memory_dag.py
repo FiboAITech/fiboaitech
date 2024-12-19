@@ -5,6 +5,7 @@ import os
 from fiboaitech import Workflow, runnables
 from fiboaitech.callbacks import TracingCallbackHandler
 from fiboaitech.connections.managers import get_connection_manager
+from fiboaitech.serializers.loaders.yaml import WorkflowYAMLLoader
 from fiboaitech.utils import JsonWorkflowEncoder
 
 logger = logging.getLogger(__name__)
@@ -18,7 +19,12 @@ if __name__ == "__main__":
 
     with get_connection_manager() as cm:
         # Load the workflow from the YAML file
-        wf = Workflow.from_yaml_file(file_path=yaml_file_path, connection_manager=cm, init_components=True)
+        wf_data = WorkflowYAMLLoader.load(
+            file_path=yaml_file_path,
+            connection_manager=cm,
+            init_components=True,
+        )
+        wf = Workflow.from_yaml_file_data(file_data=wf_data, wf_id="memory-agent-workflow")
 
         # Run the workflow with the first input
         result_1 = wf.run(
