@@ -6,9 +6,11 @@ It uses a ReActAgent with a Tavily search tool and an Anthropic LLM model.
 import time
 from typing import Any
 
-from fiboaitech.connections import ScaleSerp
+from fiboaitech.connections import ScaleSerp, Tavily
 from fiboaitech.nodes.agents.react import ReActAgent
 from fiboaitech.nodes.tools.scale_serp import ScaleSerpTool
+from fiboaitech.nodes.tools.tavily import TavilyTool
+from fiboaitech.nodes.types import InferenceMode
 from examples.llm_setup import setup_llm
 
 llm = setup_llm()
@@ -33,18 +35,17 @@ def setup_agent() -> ReActAgent:
     Returns:
         ReActAgent: Configured agent ready to process queries.
     """
-
     serp_connection = ScaleSerp()
     tool_search = ScaleSerpTool(connection=serp_connection)
+
+    tavily_connection = Tavily()
+    tool_tavily = TavilyTool(connection=tavily_connection)
 
     llm = setup_llm()
 
     # Create and return the agent
     return ReActAgent(
-        name="React Agent",
-        llm=llm,
-        tools=[tool_search],
-        role=AGENT_ROLE,
+        name="React Agent", llm=llm, tools=[tool_search, tool_tavily], role=AGENT_ROLE, inference_mode=InferenceMode.XML
     )
 
 

@@ -6,6 +6,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from fiboaitech.connections import Exa
 from fiboaitech.nodes import NodeGroup
+from fiboaitech.nodes.agents.exceptions import ToolExecutionException
 from fiboaitech.nodes.node import ConnectionNode, ensure_config
 from fiboaitech.runnables import RunnableConfig
 from fiboaitech.utils.logger import logger
@@ -151,7 +152,11 @@ class ExaTool(ConnectionNode):
             search_result = response.json()
         except Exception as e:
             logger.error(f"Tool {self.name} - {self.id}: failed to get results. Error: {str(e)}")
-            raise
+            raise ToolExecutionException(
+                f"Tool '{self.name}' failed to retrieve search results. Error: {str(e)}. "
+                f"Please analyze the error and take appropriate action.",
+                recoverable=True,
+            )
 
         results = search_result.get("results", [])
         formatted_results = self._format_search_results(results)

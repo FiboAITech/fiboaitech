@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field
 
 from fiboaitech.connections.managers import ConnectionManager
 from fiboaitech.nodes import ErrorHandling, Node
+from fiboaitech.nodes.agents.exceptions import ToolExecutionException
 from fiboaitech.nodes.embedders.base import TextEmbedder
 from fiboaitech.nodes.node import NodeGroup
 from fiboaitech.nodes.retrievers.base import Retriever
@@ -118,4 +119,8 @@ class RetrievalTool(Node):
             return {"content": result}
         except Exception as e:
             logger.error(f"Tool {self.name} - {self.id}: execution error: {str(e)}", exc_info=True)
-            raise
+            raise ToolExecutionException(
+                f"Tool '{self.name}' failed to retrieve data using the specified action. "
+                f"Error: {str(e)}. Please analyze the error and take appropriate action.",
+                recoverable=True,
+            )

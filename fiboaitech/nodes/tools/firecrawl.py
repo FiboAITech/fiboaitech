@@ -4,6 +4,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from fiboaitech.connections import Firecrawl
 from fiboaitech.nodes import NodeGroup
+from fiboaitech.nodes.agents.exceptions import ToolExecutionException
 from fiboaitech.nodes.node import ConnectionNode, ensure_config
 from fiboaitech.runnables import RunnableConfig
 from fiboaitech.utils.logger import logger
@@ -119,7 +120,11 @@ class FirecrawlTool(ConnectionNode):
             logger.error(
                 f"Tool {self.name} - {self.id}: failed to get results. Error: {e}"
             )
-            raise
+            raise ToolExecutionException(
+                f"Tool '{self.name}' failed to execute the requested action. Error: {str(e)}. "
+                f"Please analyze the error and take appropriate action.",
+                recoverable=True,
+            )
 
         if self.is_optimized_for_agents:
             result = f"<Source URL>\n{url}\n<\\Source URL>"
