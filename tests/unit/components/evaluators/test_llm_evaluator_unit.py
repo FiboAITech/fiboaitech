@@ -1,4 +1,4 @@
-from fiboaitech.components.evaluators.llm_evaluator import LLMEvaluator
+from fiboaitech.evaluations.llm_evaluator import LLMEvaluator
 
 
 def test_prepare_prompt_template():

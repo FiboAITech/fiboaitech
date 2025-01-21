@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock
 
-from fiboaitech.components.evaluators.llm_evaluator import LLMEvaluator
+from fiboaitech.evaluations.llm_evaluator import LLMEvaluator
 from fiboaitech.nodes.llms import BaseLLM
 
 

@@ -2,8 +2,8 @@ from typing import Any
 
 from pydantic import BaseModel, PrivateAttr, field_validator, model_validator
 
-from fiboaitech.components.evaluators.llm_evaluator import LLMEvaluator
 from fiboaitech.evaluations import BaseEvaluator
+from fiboaitech.evaluations.llm_evaluator import LLMEvaluator
 from fiboaitech.nodes.llms import BaseLLM
 from fiboaitech.utils.logger import logger
 
