@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "fiboaitech"
-version = "0.7.0"
+version = "0.8.0"
 description = "FiboAITech is an orchestration framework for agentic AI and LLM applications"
 authors = ["FiboAITech Team <hello@getfiboaitech.ai>"]
 license = "Apache License 2.0"
