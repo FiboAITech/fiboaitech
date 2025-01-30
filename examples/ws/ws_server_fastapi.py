@@ -12,9 +12,10 @@ from fiboaitech import Workflow, callbacks, connections, flows, prompts
 from fiboaitech.callbacks.streaming import AsyncStreamingIteratorCallbackHandler
 from fiboaitech.nodes import llms
 from fiboaitech.nodes.node import NodeDependency
-from fiboaitech.nodes.tools.human_feedback import HumanFeedbackTool, InputMethod
+from fiboaitech.nodes.tools.human_feedback import HumanFeedbackTool
 from fiboaitech.runnables import RunnableConfig
 from fiboaitech.runnables.base import NodeRunnableConfig
+from fiboaitech.types.feedback import FeedbackMethod
 from fiboaitech.types.streaming import StreamingConfig, StreamingEventMessage
 
 app = FastAPI()
@@ -64,7 +65,7 @@ OPENAI_2_NODE = llms.OpenAI(
 )
 HF_NODE_STREAMING_EVENT = "streaming-hf"
 HF_NODE = HumanFeedbackTool(
-    input_method=InputMethod.stream,
+    input_method=FeedbackMethod.STREAM,
     streaming=StreamingConfig(enabled=True, event=HF_NODE_STREAMING_EVENT, timeout=15),
     depends=[NodeDependency(node=OPENAI_NODE)],
 )
